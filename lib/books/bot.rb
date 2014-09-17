@@ -2,7 +2,6 @@ require 'httparty'
 
 module Books
   class Bot
-    NYT_API_KEY = ENV['NYT_API_KEY']
     NYT_ENDPOINT = 'http://api.nytimes.com/svc/books/v2/lists/'
     LISTS = {
       fiction:    'combined-print-and-e-book-fiction',

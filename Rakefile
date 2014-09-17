@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift 'lib'
-require 'bot'
+require 'books'
 
 namespace :bot do
   desc 'Run the bot'
