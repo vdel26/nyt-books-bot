@@ -1,13 +1,13 @@
 require 'httparty'
 require 'redis'
+require 'twitter'
 
 module Books
   class Bot
-    NYT_ENDPOINT = 'http://api.nytimes.com/svc/books/v2/lists/'
     LISTS = {
       fiction:    'combined-print-and-e-book-fiction',
       nonfiction: 'combined-print-and-e-book-nonfiction',
-      advice:     'advice-how-to-and-miscellaneous',
+      advice:     'advice-how-to-and-miscellaneous'
     }
 
     def run
@@ -48,8 +48,13 @@ module Books
     end
 
     def tweet(title, author, url)
+      msg = "#{title} – by #{author}\n\n#{url}"
       Books.redis[title] = 'true'
-      puts "#{title} – by #{author}\n\n#{url}"
+      if (ENV['RACK_ENV'] == 'production')
+        Books.twitter.update(msg)
+      else
+        puts msg
+      end
     end
 
   end
