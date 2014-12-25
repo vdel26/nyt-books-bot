@@ -9,6 +9,7 @@ module Books
       nonfiction: 'combined-print-and-e-book-nonfiction',
       advice:     'advice-how-to-and-miscellaneous'
     }
+    HASHTAGS = ['#books', '#reading', '#kindle']
 
     def run
       books = fiction_books + nonfiction_books + advice_books
@@ -47,8 +48,12 @@ module Books
       Books.redis[title]
     end
 
+    def hashtags
+      HASHTAGS.sample(2).join(' ')
+    end
+
     def tweet(title, author, url)
-      msg = "#{title} – by #{author}\n\n#{url}"
+      msg = "#{title} – by #{author}\n\n#{url}\n#{hashtags}"
       Books.redis[title] = 'true'
       if (ENV['RACK_ENV'] == 'production')
         Books.twitter.update(msg)
