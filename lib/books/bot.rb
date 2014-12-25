@@ -14,9 +14,9 @@ module Books
       books = fiction_books + nonfiction_books + advice_books
 
       books.each do |book|
-        title = book['book_details'][0]['title']
-        author = book['book_details'][0]['author']
-        url = book['book_details'][0]['amazon_product_url']
+        title = book['title']
+        author = book['author']
+        url = book['amazon_product_url']
         next unless new?(book)
         next if tweeted?(title)
         tweet(title, author, url)
@@ -26,15 +26,15 @@ module Books
     private
 
     def fiction_books
-      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:fiction]}.json?api-key=#{NYT_API_KEY}")['results']
+      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:fiction]}.json?api-key=#{NYT_API_KEY}")['results']['books']
     end
 
     def nonfiction_books
-      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:nonfiction]}.json?api-key=#{NYT_API_KEY}")['results']
+      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:nonfiction]}.json?api-key=#{NYT_API_KEY}")['results']['books']
     end
 
     def advice_books
-      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:advice]}.json?api-key=#{NYT_API_KEY}")['results']
+      HTTParty.get("#{NYT_ENDPOINT}#{LISTS[:advice]}.json?api-key=#{NYT_API_KEY}")['results']['books']
     end
 
     # check if the book is new in the list

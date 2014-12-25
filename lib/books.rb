@@ -1,6 +1,6 @@
 module Books
   NYT_API_KEY = ENV['NYT_API_KEY']
-  NYT_ENDPOINT = 'http://api.nytimes.com/svc/books/v2/lists/'
+  NYT_ENDPOINT = 'http://api.nytimes.com/svc/books/v3/lists/'
 
   TWITTER_CONSUMER_KEY = ENV['TWITTER_CONSUMER_KEY']
   TWITTER_CONSUMER_SECRET = ENV['TWITTER_CONSUMER_SECRET']
